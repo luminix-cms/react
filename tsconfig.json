@@ -23,7 +23,8 @@
 
       "types": [
         /* Needed to bundle images */
-        "vite/client"
+        "vite/client",
+        "vitest/globals"
       ]
     },
     "include": ["src"],

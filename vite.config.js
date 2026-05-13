@@ -8,6 +8,13 @@ import packageJson from './package.json';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    coverage: {
+      provider: 'v8',
+    }
+  },
   plugins: [
     react(),
     dts({
