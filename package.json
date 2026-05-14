@@ -13,8 +13,8 @@
         "publish:beta": "npm run build && npm publish --tag beta"
     },
     "peerDependencies": {
-        "@luminix/core": "^0.4.0",
-        "@luminix/support": "^0.4.9",
+        "@luminix/core": "^1.0.0",
+        "@luminix/support": "^1.0.1",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "react-router-dom": "^6.25.1"
