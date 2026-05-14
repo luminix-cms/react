@@ -1,0 +1,16 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "skipLibCheck": true,
+        "moduleResolution": "bundler",
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "types": [
+            "vite/client",
+            "vitest/globals",
+            "@testing-library/jest-dom"
+        ]
+    },
+    "include": ["src"],
+    "exclude": []
+}

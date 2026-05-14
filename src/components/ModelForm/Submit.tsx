@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Submit({ children, className, ...rest }: React.HTMLAttributes<HTMLButtonElement>): React.ReactNode {
+function Submit({ children, className, ...rest }: React.ButtonHTMLAttributes<HTMLButtonElement>): React.ReactNode {
     return (
         <button
             type="submit"
