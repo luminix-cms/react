@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 
 import { vi, describe, expect, it } from 'vitest';
 
@@ -105,12 +105,12 @@ describe('ModelForm', () => {
         const item = makeModel();
         const { container } = render(<ModelForm item={item as any} />);
 
-        fireEvent.submit(container.querySelector('form')!);
+        await act(async () => {
+            fireEvent.submit(container.querySelector('form')!);
+        });
 
-        await vi.waitFor(() =>
-            expect(item.fill).toHaveBeenCalledWith(
-                expect.objectContaining({ title: 'Draft' })
-            )
+        expect(item.fill).toHaveBeenCalledWith(
+            expect.objectContaining({ title: 'Draft' })
         );
     });
 
@@ -119,12 +119,12 @@ describe('ModelForm', () => {
         const onSubmit = vi.fn();
         const { container } = render(<ModelForm item={item as any} onSubmit={onSubmit} />);
 
-        fireEvent.submit(container.querySelector('form')!);
+        await act(async () => {
+            fireEvent.submit(container.querySelector('form')!);
+        });
 
-        await vi.waitFor(() =>
-            expect(onSubmit).toHaveBeenCalledWith(
-                expect.objectContaining({ title: 'Draft' })
-            )
+        expect(onSubmit).toHaveBeenCalledWith(
+            expect.objectContaining({ title: 'Draft' })
         );
     });
 });

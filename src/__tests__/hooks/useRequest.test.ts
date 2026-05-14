@@ -1,4 +1,4 @@
-import { renderHook, waitFor } from '@testing-library/react';
+import { renderHook, waitFor, act } from '@testing-library/react';
 
 import { vi, beforeEach, describe, expect, it } from 'vitest';
 
@@ -91,10 +91,11 @@ describe('useRequest', () => {
         await waitFor(() => expect(result.current.loading).toBe(false));
 
         mockGet.mockResolvedValue(makeResponse({ count: 2 }));
-        result.current.refresh();
 
-        await waitFor(() =>
-            expect((result.current.response as any)?.count).toBe(2)
-        );
+        await act(async () => {
+            result.current.refresh();
+        });
+
+        expect((result.current.response as any)?.count).toBe(2);
     });
 });

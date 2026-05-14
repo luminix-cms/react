@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 
 import { vi, describe, expect, it } from 'vitest';
 
@@ -123,12 +123,12 @@ describe('Form', () => {
             </Form>
         );
 
-        fireEvent.submit(container.querySelector('form')!);
+        await act(async () => {
+            fireEvent.submit(container.querySelector('form')!);
+        });
 
-        await vi.waitFor(() =>
-            expect(onSubmit).toHaveBeenCalledWith(
-                expect.objectContaining({ email: 'test@example.com' })
-            )
+        expect(onSubmit).toHaveBeenCalledWith(
+            expect.objectContaining({ email: 'test@example.com' })
         );
     });
 
