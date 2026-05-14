@@ -2,6 +2,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Submit from '../../components/ModelForm/Submit';
 
+import { describe, expect, it } from 'vitest';
+
 describe('Submit', () => {
     it('renders a button with type="submit"', () => {
         render(<Submit>Save</Submit>);

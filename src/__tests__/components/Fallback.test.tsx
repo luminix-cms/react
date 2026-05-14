@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Fallback from '../../components/Fallback';
+import { afterEach, describe, expect, it } from 'vitest';
 
 describe('Fallback', () => {
     afterEach(() => {

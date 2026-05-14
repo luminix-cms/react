@@ -2,6 +2,8 @@ import { renderHook, act } from '@testing-library/react';
 import { Collection } from '@luminix/support';
 import useCollection from '../../hooks/useCollection';
 
+import { describe, expect, it } from 'vitest';
+
 describe('useCollection', () => {
     it('returns a snapshot of the collection on mount', () => {
         const col = new Collection([1, 2, 3]);

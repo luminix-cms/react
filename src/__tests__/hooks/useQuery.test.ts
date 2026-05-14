@@ -1,6 +1,8 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { Collection } from '@luminix/support';
 
+import { vi, describe, expect, it } from 'vitest';
+
 vi.mock('@luminix/core', () => ({
     collect: vi.fn((items: unknown[]) => new Collection(items)),
     log: vi.fn(() => ({ error: vi.fn(), debug: vi.fn() })),

@@ -8,6 +8,8 @@ import useCurrentForm from '../../hooks/useCurrentForm';
 import useModelFormItem from '../../hooks/useModelFormItem';
 import usePagination from '../../hooks/usePagination';
 
+import { vi, describe, expect, it } from 'vitest';
+
 // ─── useCurrentForm ───────────────────────────────────────────────────────────
 
 describe('useCurrentForm', () => {

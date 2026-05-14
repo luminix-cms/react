@@ -9,6 +9,8 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 
+import { vi, beforeEach, describe, expect, it, afterEach } from 'vitest';
+
 // Control useErrors return value per-test.
 vi.mock('../../hooks/useErrors', () => ({ default: vi.fn(() => ({})) }));
 

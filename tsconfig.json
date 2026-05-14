@@ -1,32 +1,32 @@
 {
-    "compilerOptions": {
-      "target": "ESNext",
-      "useDefineForClassFields": true,
-      "lib": ["ESNext", "DOM", "DOM.Iterable"],
-      "module": "ESNext",
-      "skipLibCheck": false,
-  
-      /* Bundler mode */
-      "moduleResolution": "Node",
-      "allowSyntheticDefaultImports": true,
-      "allowImportingTsExtensions": true,
-      "resolveJsonModule": true,
-      "isolatedModules": true,
-      "noEmit": true,
-      "jsx": "react-jsx",
-  
-      /* Linting */
-      "strict": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "noFallthroughCasesInSwitch": true,
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": false,
 
-      "types": [
-        /* Needed to bundle images */
-        "vite/client"
-      ]
-    },
-    "include": ["src"],
-    "exclude": ["src/__tests__"]
-  }
+    /* Bundler mode */
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    "types": [
+      /* Needed to bundle images */
+      "vite/client"
+    ]
+  },
+  "include": ["src"],
+  "exclude": ["src/__tests__"]
+}
   

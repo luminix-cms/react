@@ -1,6 +1,8 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 
+import { vi, describe, expect, it } from 'vitest';
+
 vi.mock('@luminix/support', async (importOriginal) => {
     const actual = await importOriginal<typeof import('@luminix/support')>();
     return {

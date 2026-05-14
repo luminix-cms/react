@@ -1,5 +1,7 @@
 import { renderHook, waitFor } from '@testing-library/react';
 
+import { vi, beforeEach, describe, expect, it } from 'vitest';
+
 vi.mock('@luminix/core', () => ({
     App: { hasDebugModeEnabled: vi.fn(() => false) },
     Error: { set: vi.fn() },

@@ -2,6 +2,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
+import { vi, beforeEach, describe, expect, it } from 'vitest';
+
 // Isolate from real HTTP / router internals.
 vi.mock('../../hooks/useBrowsableQuery', () => ({
     default: vi.fn(() => ({

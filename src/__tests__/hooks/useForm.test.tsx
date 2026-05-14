@@ -1,3 +1,5 @@
+import { vi, describe, expect, it } from 'vitest';
+
 // Make Func.debounce and Func.throttle passthroughs so we don't need fake timers.
 vi.mock('@luminix/support', async (importOriginal) => {
     const actual = await importOriginal<typeof import('@luminix/support')>();
@@ -85,7 +87,7 @@ describe('useForm', () => {
         act(() => {
             result.current
                 .inputProps('name')
-                .onChange({ target: { value: 'Jane' } } as any);
+                .onChange!({ target: { value: 'Jane' } } as any);
         });
 
         expect(result.current.data.name).toBe('Jane');
@@ -142,7 +144,7 @@ describe('useForm', () => {
         act(() => {
             result.current
                 .checkboxProps('agree')
-                .onChange({ target: { checked: true } } as any);
+                .onChange!({ target: { checked: true } } as any);
         });
 
         expect(result.current.data.agree).toBe(true);
@@ -156,7 +158,7 @@ describe('useForm', () => {
         act(() => {
             result.current
                 .checkboxProps('colors[]', 'red')
-                .onChange({ target: { checked: true } } as any);
+                .onChange!({ target: { checked: true } } as any);
         });
 
         expect(result.current.data.colors).toContain('red');
@@ -170,7 +172,7 @@ describe('useForm', () => {
         act(() => {
             result.current
                 .checkboxProps('colors[]', 'red')
-                .onChange({ target: { checked: false } } as any);
+                .onChange!({ target: { checked: false } } as any);
         });
 
         expect(result.current.data.colors).not.toContain('red');
@@ -195,7 +197,7 @@ describe('useForm', () => {
         act(() => {
             result.current
                 .radioProps('size', 'L')
-                .onChange({ target: { value: 'L' } } as any);
+                .onChange!({ target: { value: 'L' } } as any);
         });
 
         expect(result.current.data.size).toBe('L');
@@ -218,7 +220,7 @@ describe('useForm', () => {
         act(() => {
             result.current
                 .selectProps('size')
-                .onChange({ target: { value: 'XL' } } as any);
+                .onChange!({ target: { value: 'XL' } } as any);
         });
 
         expect(result.current.data.size).toBe('XL');

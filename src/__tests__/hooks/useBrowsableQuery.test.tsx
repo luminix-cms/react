@@ -2,6 +2,8 @@ import React from 'react';
 import { renderHook } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
+import { vi, beforeEach, describe, expect, it } from 'vitest';
+
 // Isolate from the real useQuery and @luminix/core so this test only covers
 // useBrowsableQuery's own logic (URL param extraction, builder setup, cleanup).
 vi.mock('../../hooks/useQuery', () => ({

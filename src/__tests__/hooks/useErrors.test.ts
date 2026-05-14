@@ -1,5 +1,7 @@
 import { renderHook, act } from '@testing-library/react';
 
+import { vi, beforeEach, describe, expect, it } from 'vitest';
+
 vi.mock('@luminix/core', () => ({
     error: vi.fn(),
 }));
@@ -43,7 +45,7 @@ describe('useErrors', () => {
 
     it('updates errors in camelCase with "Error" suffix when the bag changes', () => {
         const { result } = renderHook(() => useErrors());
-        const changeHandler = mockOn.mock.calls[0][1];
+        const changeHandler = (mockOn.mock.calls[0] as any)[1] as any;
 
         act(() => {
             changeHandler({
