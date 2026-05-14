@@ -1,7 +1,8 @@
 {
     "name": "@luminix/react",
-    "version": "dev",
+    "version": "",
     "type": "module",
+    "repository": "luminix-cms/react",
     "scripts": {
         "dev": "vite",
         "prebuild": "rm -rf types",
