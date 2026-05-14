@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react-swc';
 
 import dts from 'vite-plugin-dts';
 
@@ -8,14 +8,6 @@ import packageJson from './package.json';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  test: {
-    environment: 'jsdom',
-    globals: true,
-    setupFiles: ['./src/__tests__/setup.ts'],
-    coverage: {
-      provider: 'v8',
-    }
-  },
   plugins: [
     react(),
     dts({
