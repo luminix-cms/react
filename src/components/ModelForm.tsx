@@ -10,6 +10,7 @@ import Input from './Form/Input';
 import ModelFormContext from '../contexts/ModelFormContext';
 import useCurrentForm from '../hooks/useCurrentForm';
 import Submit from './ModelForm/Submit';
+import Forms from '../facades/Forms';
 
 const DEFAULT_GET_SAVE_OPTIONS = () => ({});
 
@@ -39,11 +40,14 @@ function ModelForm({
     hideSubmit = false,
     submitText = 'Submit',
     confirmed: confirmedProp = [],
+    submitComponent,
     ...rest
 }: ModelFormProps): React.ReactNode {
 
     const saveRoute = item.getRouteForSave();
     const confirmed = React.useMemo(() => typeof confirmedProp === 'string' ? [confirmedProp] : confirmedProp, [confirmedProp]);
+    const SubmitButton = submitComponent ?? Forms.getSubmitComponent();
+    const submitProps = Forms.getSubmitProps();
 
     const formRef = React.useRef<FormImperativeHandle>({
         applyMiddlewares: (client) => client
@@ -101,7 +105,7 @@ function ModelForm({
                                 <ModelSaveListener />
                                 <DefaultFormInputs confirmed={confirmed} />
                                 {!hideSubmit && (
-                                    <Submit style={{ marginTop: '1rem' }}>{submitText}</Submit>
+                                    <SubmitButton {...submitProps}>{submitText}</SubmitButton>
                                 )}
                             </>
                         );

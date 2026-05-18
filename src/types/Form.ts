@@ -43,6 +43,7 @@ export type ModelFormProps = Omit<FormProps<JsonObject>, 'initialValues' | 'acti
     hideSubmit?: boolean,
     submitText?: string,
     confirmed?: string|string[],
+    submitComponent?: React.ComponentType<React.ButtonHTMLAttributes<HTMLButtonElement>>,
 };
 
 export type InteractiveFormProps = Pick<React.FormHTMLAttributes<HTMLFormElement>, 'onSubmit' | 'action' | 'method'> & {
@@ -160,11 +161,13 @@ export type MiddlewareManager = ReducibleInterface<Record<string, ReducerCallbac
 export declare class FormServiceBase {
 
     getFormInputComponent(type: string): React.ElementType;
+    getSubmitComponent(): React.ComponentType<React.ButtonHTMLAttributes<HTMLButtonElement>>;
+    getSubmitProps(): React.ButtonHTMLAttributes<HTMLButtonElement>;
     getDefaultInputsForModel(item: ModelType, confirmed?: string[]): InputProps<keyof InputPropTypeMap>[];
     ensureFrontendRequestsAreStateful(): void;
     create(callback: (id: string) => void): () => void;
     subscribe(id: string, middleware: (client: Client) => Client): () => void;
-    listen(id: string, callback: (e: Event<CollectionChanged<FormMiddleware>, Collection<FormMiddleware>>) => void): () => void; 
+    listen(id: string, callback: (e: Event<CollectionChanged<FormMiddleware>, Collection<FormMiddleware>>) => void): () => void;
     applyMiddlewares(id: string, client: Client): Client;
 
 }
@@ -174,6 +177,14 @@ export type FormServicesReducers = {
     expandUseFormProps<T extends object>(state: Partial<UseForm<T>>, data: T): Partial<UseForm<T>>;
 
     replaceFormInputComponent(component: React.ElementType, type: string): React.ElementType;
+
+    replaceSubmitComponent(
+        component: React.ComponentType<React.ButtonHTMLAttributes<HTMLButtonElement>>
+    ): React.ComponentType<React.ButtonHTMLAttributes<HTMLButtonElement>>;
+
+    getSubmitProps(
+        props: React.ButtonHTMLAttributes<HTMLButtonElement>
+    ): React.ButtonHTMLAttributes<HTMLButtonElement>;
     
     getDefaultInputProps(
         props: ModelInputProps<keyof InputPropTypeMap>,

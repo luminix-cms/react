@@ -11,6 +11,7 @@ import Select from '../components/Form/Input/Select';
 import Textarea from '../components/Form/Input/Textarea';
 import Text from '../components/Form/Input/Text';
 import Csrf from '../components/Form/Input/Csrf';
+import Submit from '../components/ModelForm/Submit';
 
 
 class RawFormService implements FormServiceBase {
@@ -30,6 +31,14 @@ class RawFormService implements FormServiceBase {
             this.switchInputType(type),
             type
         );
+    }
+
+    getSubmitComponent(): React.ComponentType<React.ButtonHTMLAttributes<HTMLButtonElement>> {
+        return this.thisAny().replaceSubmitComponent(Submit);
+    }
+
+    getSubmitProps(): React.ButtonHTMLAttributes<HTMLButtonElement> {
+        return this.thisAny().getSubmitProps({ style: { marginTop: '1rem' } });
     }
 
     getDefaultInputsForModel(item: ModelType, confirmed: string[] = []) {

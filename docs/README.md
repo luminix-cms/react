@@ -282,6 +282,7 @@ function EditUser({ user }) {
 | `confirmed` | `string \| string[]` | `[]` | Campos que exigem campo de confirmação (`*_confirmation`). |
 | `hideSubmit` | `boolean` | `false` | Oculta o botão de submit padrão. |
 | `submitText` | `string` | `'Submit'` | Texto do botão de submit. |
+| `submitComponent` | `React.ComponentType<ButtonHTMLAttributes>` | — | Componente customizado para o botão de submit. Substitui o padrão apenas nesta instância. Tem precedência sobre o reducer `replaceSubmitComponent`. |
 
 **Sub-componentes disponíveis:**
 
@@ -623,6 +624,8 @@ const TextComponent = Forms.getFormInputComponent('text');
 | `Forms.applyMiddlewares(id, client)` | Aplica os middlewares de um formulário ao cliente HTTP. |
 | `Forms.expandUseFormProps(state, data)` | Executa os reducers `expandUseFormProps` e retorna estado expandido. |
 | `Forms.getFormInputComponent(type)` | Retorna o componente React registrado para o tipo de input. |
+| `Forms.getSubmitComponent()` | Retorna o componente de submit após aplicar o reducer `replaceSubmitComponent`. |
+| `Forms.getSubmitProps()` | Retorna as props do botão de submit após aplicar o reducer `getSubmitProps`. O valor padrão é `{ style: { marginTop: '1rem' } }`. |
 | `Forms.getDefaultInputsForModel(item, confirmed?)` | Gera a lista de `InputProps` a partir do schema do modelo. |
 | `Forms.ensureFrontendRequestsAreStateful()` | Registra middleware global de CSRF/cookie (chamado automaticamente). |
 
@@ -643,6 +646,63 @@ Forms.reducer('replaceFormInputComponent', (component, type) => {
     return component;
 });
 ```
+
+### Substituir o botão de submit globalmente
+
+Use o reducer `replaceSubmitComponent` para trocar o botão de submit em **todos** os `ModelForm` que usam inputs padrão. Ideal para plugins de UI (ex.: `@luminix/react-mui-inputs-plugin`):
+
+```tsx
+import { Forms } from '@luminix/react';
+import { Button } from '@mui/material';
+
+Forms.reducer('replaceSubmitComponent', () => Button);
+```
+
+O componente recebe as mesmas props de `React.ButtonHTMLAttributes<HTMLButtonElement>`, incluindo `children` (o texto do botão) e `style`.
+
+### Substituir o botão de submit por instância
+
+Use a prop `submitComponent` diretamente no `<ModelForm>` para substituir o botão apenas naquele formulário, sem afetar os demais:
+
+```tsx
+import { ModelForm } from '@luminix/react';
+
+function MyCustomButton({ children, ...props }) {
+    return <button className="btn btn-primary" {...props}>{children}</button>;
+}
+
+<ModelForm item={user} submitComponent={MyCustomButton} submitText="Salvar usuário" />
+```
+
+> **Precedência:** `submitComponent` (por instância) tem prioridade sobre o reducer `replaceSubmitComponent` (global). Ambos respeitam `hideSubmit` — quando `hideSubmit={true}`, nenhum botão é renderizado.
+
+### Customizar as props do botão de submit
+
+Use o reducer `getSubmitProps` para controlar as props HTML passadas ao botão de submit em **todos** os `ModelForm`. O valor inicial (antes de qualquer reducer) é `{ style: { marginTop: '1rem' } }`.
+
+```tsx
+import { Forms } from '@luminix/react';
+
+// Trocar o estilo padrão
+Forms.reducer('getSubmitProps', (props) => ({
+    ...props,
+    style: { marginTop: '0.5rem' },
+    className: 'btn btn-primary',
+}));
+
+// Remover o estilo padrão completamente
+Forms.reducer('getSubmitProps', () => ({
+    className: 'btn btn-primary',
+}));
+
+// Adicionar atributos extras sem remover os padrões
+Forms.reducer('getSubmitProps', (props) => ({
+    ...props,
+    disabled: someCondition,
+}));
+```
+
+O reducer recebe as props acumuladas até aquele ponto e deve retornar o objeto de props final. Múltiplos reducers são encadeados em ordem de registro.
 
 ### Customizar inputs por modelo
 

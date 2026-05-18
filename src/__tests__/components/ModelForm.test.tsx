@@ -38,10 +38,13 @@ vi.mock('../../facades/Forms', () => ({
         listen: vi.fn(() => vi.fn()),
         getFormInputComponent: vi.fn(() => () => null),
         getDefaultInputsForModel: vi.fn(() => []),
+        getSubmitComponent: vi.fn(() => 'button'),
+        getSubmitProps: vi.fn(() => ({ style: { marginTop: '1rem' } })),
     },
 }));
 
 import ModelForm from '../../components/ModelForm';
+import Forms from '../../facades/Forms';
 
 const makeModel = (overrides: Record<string, unknown> = {}) => ({
     getRouteForSave: vi.fn(() => 'luminix.posts.store'),
@@ -127,4 +130,78 @@ describe('ModelForm', () => {
             expect.objectContaining({ title: 'Draft' })
         );
     });
+
+    it('calls Forms.getSubmitComponent when no submitComponent prop is provided', () => {
+        const item = makeModel();
+        vi.mocked(Forms.getSubmitComponent).mockClear();
+        render(<ModelForm item={item as any} />);
+        expect(Forms.getSubmitComponent).toHaveBeenCalled();
+    });
+
+    it('renders a custom submit button when submitComponent prop is provided', () => {
+        const item = makeModel();
+        const CustomButton = ({ children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+            <button data-testid="custom-submit" {...props}>{children}</button>
+        );
+        render(<ModelForm item={item as any} submitComponent={CustomButton} />);
+        expect(screen.getByTestId('custom-submit')).toBeInTheDocument();
+    });
+
+    it('passes submitText as children to the custom submitComponent', () => {
+        const item = makeModel();
+        const CustomButton = ({ children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+            <button data-testid="custom-submit" {...props}>{children}</button>
+        );
+        render(<ModelForm item={item as any} submitComponent={CustomButton} submitText="Publicar" />);
+        expect(screen.getByTestId('custom-submit')).toHaveTextContent('Publicar');
+    });
+
+    it('does not call Forms.getSubmitComponent when submitComponent prop is provided', () => {
+        const item = makeModel();
+        vi.mocked(Forms.getSubmitComponent).mockClear();
+        const CustomButton = ({ children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+            <button {...props}>{children}</button>
+        );
+        render(<ModelForm item={item as any} submitComponent={CustomButton} />);
+        expect(Forms.getSubmitComponent).not.toHaveBeenCalled();
+    });
+
+    it('does not render submitComponent when hideSubmit is true', () => {
+        const item = makeModel();
+        const CustomButton = ({ children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+            <button data-testid="custom-submit" {...props}>{children}</button>
+        );
+        render(<ModelForm item={item as any} submitComponent={CustomButton} hideSubmit />);
+        expect(screen.queryByTestId('custom-submit')).not.toBeInTheDocument();
+    });
+
+    it('calls Forms.getSubmitProps when rendering the submit button', () => {
+        const item = makeModel();
+        vi.mocked(Forms.getSubmitProps).mockClear();
+        render(<ModelForm item={item as any} />);
+        expect(Forms.getSubmitProps).toHaveBeenCalled();
+    });
+
+    it('spreads props returned by Forms.getSubmitProps onto the submit button', () => {
+        const item = makeModel();
+        vi.mocked(Forms.getSubmitProps).mockReturnValueOnce({
+            style: { marginTop: '2rem' },
+            'data-testid': 'styled-submit',
+        } as React.ButtonHTMLAttributes<HTMLButtonElement>);
+        render(<ModelForm item={item as any} />);
+        const btn = screen.getByTestId('styled-submit');
+        expect(btn.style.marginTop).toBe('2rem');
+    });
+
+    it('default submit props include marginTop: 1rem style', () => {
+        const item = makeModel();
+        vi.mocked(Forms.getSubmitProps).mockReturnValueOnce({
+            style: { marginTop: '1rem' },
+            'data-testid': 'default-submit',
+        } as React.ButtonHTMLAttributes<HTMLButtonElement>);
+        render(<ModelForm item={item as any} />);
+        const btn = screen.getByTestId('default-submit');
+        expect(btn.style.marginTop).toBe('1rem');
+    });
+
 });

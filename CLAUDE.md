@@ -6,16 +6,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `@luminix/react` is the React binding layer for the Luminix full-stack framework. It sits between `@luminix/core` (framework logic) and the consuming React application, providing components, hooks, and services for forms, routing, and app initialization.
 
+Full documentation can be found in `README.md` and `docs/README.md`.
+
 ## Commands
 
 ```bash
 npm run dev          # Start Vite dev server
 npm run build        # Compile TypeScript + bundle with Vite (outputs dist/react.js + types/)
-npm run lint         # ESLint with 0 warnings tolerance
-npm run publish:beta # Build and publish to npm as beta tag
+npm run test         # Run test suite
+npm run build        # Build dist version
 ```
-
-There is no test suite — ESLint is the only automated code quality tool.
 
 ## Ecosystem Architecture
 
@@ -96,3 +96,5 @@ Manages a `@luminix/support` `Collection` as React state, re-rendering on `chang
 **Build output** — The library is ESM-only (`dist/react.js`). All peer dependencies (`react`, `react-dom`, `react-router-dom`, `@luminix/core`, `@luminix/support`) are externalized and must not be bundled.
 
 **Type generation** — `vite-plugin-dts` auto-generates `types/index.d.ts` from `src/index.ts` exports. Everything the library exposes must be re-exported from `src/index.ts`.
+
+**Testing and Documentation** - When modifying the source code, make sure to update the documentation in `README.md` and `docs/README.md`. Also, write tests for new features.
