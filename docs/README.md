@@ -625,7 +625,7 @@ const TextComponent = Forms.getFormInputComponent('text');
 | `Forms.expandUseFormProps(state, data)` | Executa os reducers `expandUseFormProps` e retorna estado expandido. |
 | `Forms.getFormInputComponent(type)` | Retorna o componente React registrado para o tipo de input. |
 | `Forms.getSubmitComponent()` | Retorna o componente de submit após aplicar o reducer `replaceSubmitComponent`. |
-| `Forms.getSubmitProps()` | Retorna as props do botão de submit após aplicar o reducer `getSubmitProps`. O valor padrão é `{ style: { marginTop: '1rem' } }`. |
+| `Forms.getSubmitProps()` | Retorna as props do botão de submit após aplicar o reducer `replaceSubmitProps`. O valor padrão é `{ style: { marginTop: '1rem' } }`. |
 | `Forms.getDefaultInputsForModel(item, confirmed?)` | Gera a lista de `InputProps` a partir do schema do modelo. |
 | `Forms.ensureFrontendRequestsAreStateful()` | Registra middleware global de CSRF/cookie (chamado automaticamente). |
 
@@ -678,25 +678,25 @@ function MyCustomButton({ children, ...props }) {
 
 ### Customizar as props do botão de submit
 
-Use o reducer `getSubmitProps` para controlar as props HTML passadas ao botão de submit em **todos** os `ModelForm`. O valor inicial (antes de qualquer reducer) é `{ style: { marginTop: '1rem' } }`.
+Use o reducer `replaceSubmitProps` para controlar as props HTML passadas ao botão de submit em **todos** os `ModelForm`. O valor inicial (antes de qualquer reducer) é `{ style: { marginTop: '1rem' } }`.
 
 ```tsx
 import { Forms } from '@luminix/react';
 
 // Trocar o estilo padrão
-Forms.reducer('getSubmitProps', (props) => ({
+Forms.reducer('replaceSubmitProps', (props) => ({
     ...props,
     style: { marginTop: '0.5rem' },
     className: 'btn btn-primary',
 }));
 
 // Remover o estilo padrão completamente
-Forms.reducer('getSubmitProps', () => ({
+Forms.reducer('replaceSubmitProps', () => ({
     className: 'btn btn-primary',
 }));
 
 // Adicionar atributos extras sem remover os padrões
-Forms.reducer('getSubmitProps', (props) => ({
+Forms.reducer('replaceSubmitProps', (props) => ({
     ...props,
     disabled: someCondition,
 }));

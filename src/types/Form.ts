@@ -182,7 +182,7 @@ export type FormServicesReducers = {
         component: React.ComponentType<React.ButtonHTMLAttributes<HTMLButtonElement>>
     ): React.ComponentType<React.ButtonHTMLAttributes<HTMLButtonElement>>;
 
-    getSubmitProps(
+    replaceSubmitProps(
         props: React.ButtonHTMLAttributes<HTMLButtonElement>
     ): React.ButtonHTMLAttributes<HTMLButtonElement>;
     

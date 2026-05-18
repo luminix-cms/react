@@ -38,7 +38,7 @@ class RawFormService implements FormServiceBase {
     }
 
     getSubmitProps(): React.ButtonHTMLAttributes<HTMLButtonElement> {
-        return this.thisAny().getSubmitProps({ style: { marginTop: '1rem' } });
+        return this.thisAny().replaceSubmitProps({ style: { marginTop: '1rem' } });
     }
 
     getDefaultInputsForModel(item: ModelType, confirmed: string[] = []) {
