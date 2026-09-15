@@ -202,7 +202,7 @@ export type FormServicesReducers = {
         attribute: ModelAttribute,
     ): Record<string, keyof InputPropTypeMap>;
 
-    mapAttributeTypeToInputType(
+    mapAttributeTypeToInputTypes(
         map: Record<string, keyof InputPropTypeMap>,
         item: ModelType,
         attribute: ModelAttribute,

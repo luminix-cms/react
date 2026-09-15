@@ -51,10 +51,6 @@ Each generated input gets `label: Str.human(key)` and
 schema produces nothing. Every field named in `confirmed` is duplicated into a
 `{field}_confirmation` input labelled `Confirm {label}`.
 
-⚠️ The column-type reducer that actually runs is `mapAttributeTypeToInputTypes`, plural. The
-exported `FormServicesReducers` type spells it `mapAttributeTypeToInputType`, and a reducer
-registered under that name is never called.
-
 ## CSRF
 
 `Forms.ensureFrontendRequestsAreStateful()` prepends a `csrf` input to the auto-inputs of every
