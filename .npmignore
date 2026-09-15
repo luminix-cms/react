@@ -2,3 +2,6 @@ src/
 tests/
 .github/
 docs/
+/AGENTS.md
+/CLAUDE.md
+/agents/
