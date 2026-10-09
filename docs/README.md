@@ -65,7 +65,7 @@ npm install @luminix/react @luminix/core @luminix/support react react-dom react-
 |---|---|
 | `react` | `^18.3` |
 | `react-dom` | `^18.3` |
-| `react-router-dom` | `^6.25` |
+| `react-router-dom` | `^6.25` ou `^7.18` |
 | `@luminix/core` | `^0.4` |
 | `@luminix/support` | `^0.4.9` |
 

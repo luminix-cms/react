@@ -100,7 +100,8 @@ const LuminixProvider: React.FunctionComponent<LuminixProviderProps> = ({
                 ? (
                     <RouterProvider
                         router={state.router}
-                        fallbackElement={fallbackElement}
+                        // react-router 6 shows it while the router initializes; 7 dropped the prop
+                        {...{ fallbackElement }}
                         {...props}
                     />
                 )

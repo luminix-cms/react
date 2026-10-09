@@ -1,10 +1,10 @@
-import { Router } from '@remix-run/router';
 import React from 'react';
+import { createBrowserRouter } from 'react-router-dom';
 
 
 export type LuminixContextState = {
     booted: boolean,
-    router: Router | null,
+    router: ReturnType<typeof createBrowserRouter> | null,
 
 };
 

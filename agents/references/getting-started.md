@@ -41,7 +41,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 | `routes` | `(app: AppFacade) => RouteObject[]` | **Required.** Called after `ready`, with the booted app. |
 | `config` | `AppConfiguration` | Merged into `@luminix/core` config before boot. |
 | `providers` | `(typeof ServiceProvider)[]` | Registered alongside `ReactServiceProvider`. |
-| `fallbackElement` | `ReactElement` | Rendered while booting, then handed to `<RouterProvider>`. Default `<Fallback />`, the package's logo + spinner. |
+| `fallbackElement` | `ReactElement` | Rendered while booting. Default `<Fallback />`, the package's logo + spinner. React Router 6 also shows it while the router runs its initial loaders; React Router 7 ignores it there — give the route a `HydrateFallback` instead. |
 | `onInit` / `onBooting` / `onBooted` / `onReady` / `onFlushing` / `onFlushed` | `ApplicationEvents[...]` | Bound to the matching app event before `create()`. |
 
 Anything else is forwarded to `<RouterProvider>`.
