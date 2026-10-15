@@ -34,6 +34,14 @@ export type LuminixProviderProps = Omit<RouterProviderProps, "router"> & {
     fallbackElement?: React.ReactElement,
 };
 
+// react-router 7 shows a route's own fallback while its first loaders run, so the top-level
+// routes that declare none take `fallbackElement`. react-router 6 ignores these props.
+const withHydrateFallback = (routes: RouteObject[], fallback: React.ReactElement): RouteObject[] => routes.map(
+    (route) => route.HydrateFallback || route.hydrateFallbackElement
+        ? route
+        : { ...route, hydrateFallbackElement: fallback }
+);
+
 const LuminixProvider: React.FunctionComponent<LuminixProviderProps> = ({
     routes, config, providers,
     onInit, onBooting, onBooted, onFlushing,
@@ -42,6 +50,11 @@ const LuminixProvider: React.FunctionComponent<LuminixProviderProps> = ({
 }) => {
 
     const [state, setState] = React.useState<LuminixContextState>(luminixInitialState);
+
+    // Read when the router is built; as an effect dependency, the default `<Fallback />` would
+    // reboot the app on every render
+    const fallbackRef = React.useRef(fallbackElement);
+    fallbackRef.current = fallbackElement;
 
     React.useEffect(() => {
 
@@ -83,7 +96,7 @@ const LuminixProvider: React.FunctionComponent<LuminixProviderProps> = ({
 
             setState({
                 booted: true,
-                router: createBrowserRouter(routes(app), options)
+                router: createBrowserRouter(withHydrateFallback(routes(app), fallbackRef.current), options)
             });
         });
 

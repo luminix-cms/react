@@ -100,7 +100,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 | `routes` | `(app: AppFacade) => RouteObject[]` | **Obrigatório.** Função que retorna as rotas do React Router. Recebe a instância da aplicação já inicializada. |
 | `config` | `AppConfiguration` | Configuração extra mesclada à configuração do `@luminix/core`. |
 | `providers` | `(typeof ServiceProvider)[]` | Service providers adicionais a registrar. |
-| `fallbackElement` | `ReactElement` | Elemento exibido enquanto o bootstrap não termina. Padrão: `<Fallback />` (spinner). |
+| `fallbackElement` | `ReactElement` | Elemento exibido enquanto o bootstrap e os loaders iniciais do roteador não terminam. Padrão: `<Fallback />` (spinner). No React Router 7, vira o `hydrateFallbackElement` das rotas de topo que não declaram um `HydrateFallback` próprio. |
 | `onInit` | `ApplicationEvents['init']` | Disparado antes do bootstrap. |
 | `onBooting` | `ApplicationEvents['booting']` | Disparado no início do boot. |
 | `onBooted` | `ApplicationEvents['booted']` | Disparado após todos os providers serem registrados. |

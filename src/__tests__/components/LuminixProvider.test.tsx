@@ -61,4 +61,27 @@ describe('LuminixProvider', () => {
 
         expect(screen.getByText('q=luminix')).toBeInTheDocument();
     });
+
+    it('keeps the fallback while the first loaders run', async () => {
+        let finish = () => {};
+        const loader = () => new Promise<null>((resolve) => {
+            finish = () => resolve(null);
+        });
+
+        render(
+            <LuminixProvider
+                routes={() => [{ path: '/', loader, element: <p>loaded</p> }]}
+                fallbackElement={<p>booting</p>}
+            />
+        );
+
+        await act(async () => app.ready());
+
+        expect(screen.getByText('booting')).toBeInTheDocument();
+
+        await act(async () => finish());
+
+        expect(screen.getByText('loaded')).toBeInTheDocument();
+        expect(screen.queryByText('booting')).not.toBeInTheDocument();
+    });
 });
