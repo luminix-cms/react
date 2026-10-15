@@ -19,12 +19,11 @@
         "@luminix/support": "^1.0.1",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
-        "react-router-dom": "^6.25.1"
+        "react-router-dom": "^6.25.1 || ^7.18.0"
     },
     "module": "dist/react.js",
     "types": "types/index.d.ts",
     "devDependencies": {
-        "@remix-run/router": "^1.15.3",
         "@testing-library/jest-dom": "^6.9.1",
         "@testing-library/react": "^16.3.2",
         "@testing-library/user-event": "^14.6.1",
@@ -38,6 +37,7 @@
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-react-refresh": "^0.4.5",
         "jsdom": "^29.1.1",
+        "react-router-dom": "^7.18.4",
         "typescript": "^5.2.2",
         "vite": "^5.1.4",
         "vite-plugin-dts": "^4.0.3",
